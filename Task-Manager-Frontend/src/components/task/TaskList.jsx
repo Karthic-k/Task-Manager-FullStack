@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { getTasks } from "../../services/taskService";
 import TaskCard from "./TaskCard";
 
@@ -7,16 +7,17 @@ function TaskList() {
   const [statusFilter, setStatusFilter] = useState("");
   const [assignedFilter, setAssignedFilter] = useState("");
 
-  // Fetch tasks on load or when filters change
-  useEffect(() => {
-    fetchTasks();
-  }, [statusFilter, assignedFilter]);
-
-  const fetchTasks = () => {
+  
+  const fetchTasks = useCallback(() => {
     getTasks(statusFilter, assignedFilter)
       .then((res) => setTasks(res.data))
       .catch((err) => console.error(err));
-  };
+  }, [statusFilter, assignedFilter]);
+
+ 
+  useEffect(() => {
+    fetchTasks();
+  }, [fetchTasks]);
 
   return (
     <div>
@@ -37,7 +38,7 @@ function TaskList() {
       </div>
 
       {tasks.map((task) => (
-        <TaskCard key={task.id} task={task} />
+        <TaskCard key={task.id} task={task} refreshTasks={fetchTasks} />
       ))}
     </div>
   );
