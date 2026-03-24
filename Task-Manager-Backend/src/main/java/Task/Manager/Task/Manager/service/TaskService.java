@@ -1,3 +1,4 @@
+package Task.Manager.Task.Manager.service;  
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.taskmanager.repository.TaskRepository;

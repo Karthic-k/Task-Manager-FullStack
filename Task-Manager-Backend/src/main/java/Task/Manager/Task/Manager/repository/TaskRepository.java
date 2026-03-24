@@ -1,3 +1,5 @@
+package Task.Manager.Task.Manager.repository;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import com.taskmanager.entity.Task;
 import java.util.List;
